@@ -17,14 +17,14 @@ class Activity
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $idActivity;
-
-    /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
     private $Title;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -42,7 +42,7 @@ class Activity
     private $timeStart;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $timeEnd;
 
@@ -57,45 +57,13 @@ class Activity
     private $organisationName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="activities")
      */
-    private $shortDescription;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $longDescription;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $host;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $phone;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="activities")
-     */
-    private $member;
+    private $user;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdActivity(): ?int
-    {
-        return $this->idActivity;
-    }
-
-    public function setIdActivity(int $idActivity): self
-    {
-        $this->idActivity = $idActivity;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -106,6 +74,18 @@ class Activity
     public function setTitle(string $Title): self
     {
         $this->Title = $Title;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -146,12 +126,12 @@ class Activity
         return $this;
     }
 
-    public function getTimeEnd(): ?\DateTimeInterface
+    public function getTimeEnd(): ?string
     {
         return $this->timeEnd;
     }
 
-    public function setTimeEnd(\DateTimeInterface $timeEnd): self
+    public function setTimeEnd(?string $timeEnd): self
     {
         $this->timeEnd = $timeEnd;
 
@@ -182,62 +162,14 @@ class Activity
         return $this;
     }
 
-    public function getShortDescription(): ?string
+    public function getUser(): ?User
     {
-        return $this->shortDescription;
+        return $this->user;
     }
 
-    public function setShortDescription(string $shortDescription): self
+    public function setUser(?User $user): self
     {
-        $this->shortDescription = $shortDescription;
-
-        return $this;
-    }
-
-    public function getLongDescription(): ?string
-    {
-        return $this->longDescription;
-    }
-
-    public function setLongDescription(?string $longDescription): self
-    {
-        $this->longDescription = $longDescription;
-
-        return $this;
-    }
-
-    public function getHost(): ?string
-    {
-        return $this->host;
-    }
-
-    public function setHost(string $host): self
-    {
-        $this->host = $host;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?string $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getMember(): ?Member
-    {
-        return $this->member;
-    }
-
-    public function setMember(?Member $member): self
-    {
-        $this->member = $member;
+        $this->user = $user;
 
         return $this;
     }

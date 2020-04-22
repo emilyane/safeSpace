@@ -32,39 +32,24 @@ class Accomodation
     private $commune;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="datetime")
      */
     private $dateStart;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateEnd;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $photo;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $shortDescription;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $longDescription;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $host;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $phone;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -72,10 +57,9 @@ class Accomodation
     private $languageSpoken;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="accomodations")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="accomodation")
      */
-    private $member;
+    private $user;
 
     public function getId(): ?int
     {
@@ -118,6 +102,30 @@ class Accomodation
         return $this;
     }
 
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     public function getDateStart(): ?\DateTimeInterface
     {
         return $this->dateStart;
@@ -142,66 +150,6 @@ class Accomodation
         return $this;
     }
 
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(?string $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    public function getShortDescription(): ?string
-    {
-        return $this->shortDescription;
-    }
-
-    public function setShortDescription(string $shortDescription): self
-    {
-        $this->shortDescription = $shortDescription;
-
-        return $this;
-    }
-
-    public function getLongDescription(): ?string
-    {
-        return $this->longDescription;
-    }
-
-    public function setLongDescription(string $longDescription): self
-    {
-        $this->longDescription = $longDescription;
-
-        return $this;
-    }
-
-    public function getHost(): ?string
-    {
-        return $this->host;
-    }
-
-    public function setHost(?string $host): self
-    {
-        $this->host = $host;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(string $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
     public function getLanguageSpoken(): ?string
     {
         return $this->languageSpoken;
@@ -214,14 +162,14 @@ class Accomodation
         return $this;
     }
 
-    public function getMember(): ?Member
+    public function getUser(): ?User
     {
-        return $this->member;
+        return $this->user;
     }
 
-    public function setMember(?Member $member): self
+    public function setUser(?User $user): self
     {
-        $this->member = $member;
+        $this->user = $user;
 
         return $this;
     }
