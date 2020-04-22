@@ -38,14 +38,10 @@ class RegisterController extends AbstractController
 
             //upload image
             $photo = $user->getPhoto();
-
             $photoServer = md5(uniqid()) . "." . $photo->guessExtension();
-            // stocker le fichier dans le serveur (on peut indiquer un dossier)
+            //save photo on the server
             $photo->move("dossierFichiers", $photoServer);
-            // affecter le nom du fichier de l'entité. Ça sera le nom qu'on
-            // aura dans la BD (un string, pas un objet UploadedFile cette fois)
             $user->setPhoto($photoServer);
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

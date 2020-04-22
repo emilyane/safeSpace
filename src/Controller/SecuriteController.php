@@ -39,6 +39,6 @@ class SecurityController extends AbstractController
      */
     public function forgotPassword()
     {
-        return $this->render('security/forgot_password.html.twig');
+        return $this->render('security/forgotpass.html.twig');
     }
 }
