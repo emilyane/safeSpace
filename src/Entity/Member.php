@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,6 +67,27 @@ class Member
      * @ORM\Column(type="binary", nullable=true)
      */
     private $isAdmin;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Accomodation", mappedBy="member", orphanRemoval=true)
+     */
+    private $accomodations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="member")
+     */
+    private $activities;
+
+    public function __construct()
+    {
+        $this->accomodations = new ArrayCollection();
+        $this->activities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -187,6 +210,80 @@ class Member
     public function setIsAdmin($isAdmin): self
     {
         $this->isAdmin = $isAdmin;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Accomodation[]
+     */
+    public function getAccomodations(): Collection
+    {
+        return $this->accomodations;
+    }
+
+    public function addAccomodation(Accomodation $accomodation): self
+    {
+        if (!$this->accomodations->contains($accomodation)) {
+            $this->accomodations[] = $accomodation;
+            $accomodation->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccomodation(Accomodation $accomodation): self
+    {
+        if ($this->accomodations->contains($accomodation)) {
+            $this->accomodations->removeElement($accomodation);
+            // set the owning side to null (unless already changed)
+            if ($accomodation->getMember() === $this) {
+                $accomodation->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
+            // set the owning side to null (unless already changed)
+            if ($activity->getMember() === $this) {
+                $activity->setMember(null);
+            }
+        }
 
         return $this;
     }

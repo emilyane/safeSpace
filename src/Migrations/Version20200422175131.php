@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200422165512 extends AbstractMigration
+final class Version20200422175131 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,10 @@ final class Version20200422165512 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE member (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, street_address VARCHAR(255) DEFAULT NULL, commune VARCHAR(255) DEFAULT NULL, phone_number VARCHAR(255) NOT NULL, organisation_affiliaiton VARCHAR(255) DEFAULT NULL, password VARCHAR(255) NOT NULL, is_admin VARBINARY(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE member ADD id_member INT NOT NULL');
+        $this->addSql('ALTER TABLE activity ADD member_id INT DEFAULT NULL, ADD id_activity INT NOT NULL');
+        $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095A7597D3FE FOREIGN KEY (member_id) REFERENCES member (id)');
+        $this->addSql('CREATE INDEX IDX_AC74095A7597D3FE ON activity (member_id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,7 +33,9 @@ final class Version20200422165512 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE member');
+        $this->addSql('ALTER TABLE activity DROP FOREIGN KEY FK_AC74095A7597D3FE');
+        $this->addSql('DROP INDEX IDX_AC74095A7597D3FE ON activity');
+        $this->addSql('ALTER TABLE activity DROP member_id, DROP id_activity');
+        $this->addSql('ALTER TABLE member DROP id_member');
     }
-
 }
