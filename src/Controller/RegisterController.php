@@ -10,10 +10,8 @@ class RegisterController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function index()
+    public function register()
     {
-        return $this->render('register/index.html.twig', [
-            'controller_name' => 'RegisterController',
-        ]);
+        return $this->render('register/register.html.twig');
     }
 }
