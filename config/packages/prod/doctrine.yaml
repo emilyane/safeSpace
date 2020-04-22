@@ -1,5 +1,34 @@
 doctrine:
+
+    bal:
+        dbname:               database
+        host:                 localhost
+        port:                 1234
+        user:                 user
+        password:             secret
+        driver:               pdo_mysql
+        # if the url option is specified, it will override the above config
+        url:                  mysql://db_user:db_password@127.0.0.1:3306/db_name
+        # the DBAL driverClass option
+        driver_class:         App\DBAL\MyDatabaseDriver
+        # the DBAL driverOptions option
+        options:
+            foo: bar
+        path:                 '%kernel.project_dir%/var/data/data.sqlite'
+        memory:               true
+        unix_socket:          /tmp/mysql.sock
+        # the DBAL wrapperClass option
+        wrapper_class:        App\DBAL\MyConnectionWrapper
+        charset:              UTF8
+        logging:              '%kernel.debug%'
+        platform_service:     App\DBAL\MyDatabasePlatformService
+        server_version:       '5.6'
+        mapping_types:
+            enum: string
+        types:
+            custom: App\DBAL\MyCustomType
     orm:
+        url: '%env(resolve:DATABASE_URL)%'
         auto_generate_proxy_classes: false
         metadata_cache_driver:
             type: pool
@@ -18,3 +47,5 @@ framework:
                 adapter: cache.app
             doctrine.system_cache_pool:
                 adapter: cache.system
+
+    
