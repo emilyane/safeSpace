@@ -28,3 +28,7 @@ The template is not properly connecting and I have tried to solve this issue alo
 
 
 I have had issues with Xdebug and Composer that slowed down my work and caused me to restart my project twice. 
+
+Although the projet is far from finished, I have spent many hours scouring the internet to solve problems, and my Mojave Mac environment has posed many differences than what I am used to working with at Interface3.
+
+The work continues...
