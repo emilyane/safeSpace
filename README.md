@@ -21,10 +21,10 @@ Security
 
 Functions that work:
 
-The Registration controller works in connection with the database. 
-The Login controller 
+The Security and Registration controllers work in connection with the Data Fixtures and properly save in the database. 
+The Activity and Accomodation controllers need to be built. 
+
+The template is not properly connecting and I have tried to solve this issue alone and with other classmates and cannot find the solution. I have searched in the permissions and settings of Symfony, Composer and Zend and cannot find the problem. 
 
 
-Controllers to complete:
-
-Login
+I have had issues with Xdebug and Composer that slowed down my work and caused me to restart my project twice. 
