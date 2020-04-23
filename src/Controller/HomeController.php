@@ -30,8 +30,40 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/sign/up", name="signUp")
+     */
+    public function signUp(Request $req, UserPasswordEncoderInterface $encoder)
+    {
+       $em = $this->getDoctrine()->getManager();
+       $user = new User();
+       $user->setLastName($req->request->get('lastName'));
+       $user->setName($req->request->get('name'));
+       $user->setStreetAddress($req->request->get('streetAddress'));
+       $user->setCommune($req->request->get('commune'));
+       $user->setEmail($req->request->get('email'));
+       
+       $encodedPassword = $encoder->encodePassword($user, $req->request->get('password'));
+       $user->setPassword($encodedPassword);
 
-    
+            $photo = $req->files->get('image');
+           
+            
+            $photoServer = md5(uniqid()) . "." . $photo->guessExtension();
+            // stocker le fichier dans le serveur (on peut indiquer un dossier)
+            $photo->move("dossierFichiers", $photoServer);
+            // affecter le nom du fichier de l'entité. Ça sera le nom qu'on
+            // aura dans la BD (un string, pas un objet UploadedFile cette fois)
+            $user->setPhoto($photoServer);
+
+       $em->persist($user);
+       $em->flush(); 
+      
+      return $this->render('register/register.html.twig');
+    }
+
+
+
 }
 
 
