@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 23, 2020 at 09:13 AM
+-- Generation Time: Apr 23, 2020 at 09:42 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -42,6 +42,13 @@ CREATE TABLE `accomodation` (
   `language_spoken` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `accomodation`
+--
+
+INSERT INTO `accomodation` (`id`, `user_id`, `title`, `street_address`, `commune`, `phone`, `description`, `date_start`, `date_end`, `language_spoken`) VALUES
+(1, NULL, 'Warm Bedroom with 3 meals', 'Rue Malibran 121', 'Ixelles', '0484048', 'A friendly place to stay for a few nights', '2020-04-23 11:22:22', '2020-04-24 11:22:22', 'french, english');
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +68,13 @@ CREATE TABLE `activity` (
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `organisation_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `activity`
+--
+
+INSERT INTO `activity` (`id`, `user_id`, `title`, `description`, `street_address`, `commune`, `time_start`, `time_end`, `photo`, `organisation_name`) VALUES
+(1, NULL, 'French lessons', 'Free beginner\'s french courses', 'rue malibran 121', 'ixelles', '2020-04-23 07:23:25', 'n/a', NULL, 'French Club BXL');
 
 -- --------------------------------------------------------
 
@@ -166,13 +180,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `accomodation`
 --
 ALTER TABLE `accomodation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
